@@ -4,9 +4,13 @@
 using namespace std;
 
 int main() {
-    string num;
-    cin >> num;
-    BigInteger n1(num);
-    n1.display();
+    string num1, num2;
+    //cin >> num1 >> num2;
+    BigInteger n1(
+            "1234111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111");
+    BigInteger n2(
+            "2311111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111222224");
+    BigInteger n3 = n1 + n2;
+    n3.display();
     return 0;
 }

@@ -14,17 +14,14 @@ class BigInteger {
 public:
     Node *num;
 
-    explicit BigInteger(const string &s) {
-        Node *head = new Node(s[0] - '0');
-        for (int i = 1; i < s.length(); i++) {
-            Node *tmp = new Node(s[i] - '0');
-            tmp->next = head;
-            head = tmp;
-        }
-        num = head;
-    }
+    explicit BigInteger(const string &s);
 
-    void display();
+    BigInteger();
+
+    void display();//暂时为反向输出
+    void add(int);
+
+    BigInteger operator+(BigInteger n2);
 };
 
 

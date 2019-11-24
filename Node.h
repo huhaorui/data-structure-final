@@ -11,7 +11,7 @@ public:
     int n;
     Node *next;
 
-    Node(int n) {
+    explicit Node(int n) {
         this->n = n;
         next = nullptr;
     }
@@ -20,6 +20,10 @@ public:
         n = 0;
         next = nullptr;
     };
+
+    void edit(int seat, int num);
+
+    int get(int seat);
 };
 
 
