@@ -24,6 +24,8 @@ public:
     void edit(int seat, int num);
 
     int get(int seat);
+
+    int end();
 };
 
 

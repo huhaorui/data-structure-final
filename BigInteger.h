@@ -13,14 +13,18 @@ using namespace std;
 class BigInteger {
 public:
     Node *num;
-    explicit BigInteger(const string &s);
+    bool negative = false;
+
+    explicit BigInteger(string s);
 
     BigInteger();
 
     void display();//暂时为反向输出
     void add(int);
 
-    BigInteger operator+(BigInteger n2);
+    BigInteger operator+(BigInteger &n2);
+
+    BigInteger operator-(BigInteger &n2);
 };
 
 

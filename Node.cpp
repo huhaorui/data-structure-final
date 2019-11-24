@@ -19,3 +19,11 @@ int Node::get(int seat) {
     }
     return tmp->n;
 }
+
+int Node::end() {
+    Node *tmp = this;
+    while (tmp->next) {
+        tmp = tmp->next;
+    }
+    return tmp->n;
+}
