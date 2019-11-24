@@ -3,4 +3,4 @@ project(data_structure_final)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(data_structure_final main.cpp)
+add_executable(data_structure_final main.cpp BigInteger.cpp BigInteger.h Node.cpp Node.h)

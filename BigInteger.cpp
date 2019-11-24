@@ -3,3 +3,12 @@
 //
 
 #include "BigInteger.h"
+#include "Node.h"
+
+void BigInteger::display() {
+    Node *tmp = num;
+    while (tmp) {
+        cout << tmp->n;
+        tmp = tmp->next;
+    }
+}
