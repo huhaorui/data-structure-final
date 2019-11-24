@@ -1,0 +1,14 @@
+//
+// Created by HHR on 2019/11/24.
+//
+
+#ifndef DATA_STRUCTURE_FINAL_BIGINTEGER_H
+#define DATA_STRUCTURE_FINAL_BIGINTEGER_H
+
+
+class BigInteger {
+
+};
+
+
+#endif //DATA_STRUCTURE_FINAL_BIGINTEGER_H
