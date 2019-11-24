@@ -4,6 +4,7 @@
 
 #include "BigInteger.h"
 #include "Node.h"
+#include "stack.h"
 
 BigInteger::BigInteger(const string &s) {
     Node *head = new Node(s[0] - '0');
@@ -21,9 +22,13 @@ BigInteger::BigInteger() {
 
 void BigInteger::display() {
     Node *tmp = num;
+    stack stack1;
     while (tmp) {
-        cout << tmp->n;
+        stack1.push(tmp->n);
         tmp = tmp->next;
+    }
+    while (!stack1.empty()) {
+        cout << stack1.pop();
     }
 }
 
@@ -53,6 +58,14 @@ BigInteger BigInteger::operator+(BigInteger n2) {
         }
     }
     tmp.num = tmp.num->next;
+    Node *tmp2 = tmp.num;
+    while (tmp2) {
+        if (tmp2->n >= 10) {
+            tmp2->next->n += tmp2->n / 10;
+            tmp2->n %= 10;
+        }
+        tmp2 = tmp2->next;
+    }
     return tmp;
 }
 

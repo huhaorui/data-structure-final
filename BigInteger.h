@@ -13,7 +13,6 @@ using namespace std;
 class BigInteger {
 public:
     Node *num;
-
     explicit BigInteger(const string &s);
 
     BigInteger();
