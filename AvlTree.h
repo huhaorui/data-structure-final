@@ -10,7 +10,11 @@
 
 class AvlTree {
 public:
-    Node *root = nullptr;
+    Node *root;
+
+    AvlTree() {
+        root = nullptr;
+    }
 
     void addUser(string &, string &);
 

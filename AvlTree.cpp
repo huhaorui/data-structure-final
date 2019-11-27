@@ -9,13 +9,13 @@ void AvlTree::addUser(string &name, string &password) {
 }
 
 Node *AvlTree::addNode(Node *pNode, string &name, string &password) {
-    if (!pNode) { //树为空的情况
+    if (pNode == nullptr) { //树为空的情况
         pNode = new Node(name, password);
         return pNode;
     } else if (name < pNode->getName()) {//要插入左边
-        pNode = addNode(pNode->left, name, password);
+        pNode->left = addNode(pNode->left, name, password);
     } else {
-        pNode = addNode(pNode->right, name, password);
+        pNode->right = addNode(pNode->right, name, password);
     }
     //旋转树
     return pNode;
