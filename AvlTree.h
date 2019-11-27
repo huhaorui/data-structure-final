@@ -5,7 +5,6 @@
 #ifndef DATA_STRUCTURE_FINAL_AVLTREE_H
 #define DATA_STRUCTURE_FINAL_AVLTREE_H
 
-
 #include "Node.h"
 
 class AvlTree {
@@ -20,6 +19,5 @@ public:
 
     static Node *addNode(Node *, string &, string &);
 };
-
 
 #endif //DATA_STRUCTURE_FINAL_AVLTREE_H
