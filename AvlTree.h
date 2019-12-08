@@ -6,6 +6,7 @@
 #define DATA_STRUCTURE_FINAL_AVLTREE_H
 
 #include "Node.h"
+#include "ShadowTreeNode.h"
 
 class AvlTree {
 public:
@@ -17,7 +18,11 @@ public:
 
     void addUser(string &, string &);
 
+    void print();
+
     static Node *addNode(Node *, string &, string &);
+
+    static ShadowTreeNode *STreeBuild(Node *, ShadowTreeNode *, int);
 };
 
 #endif //DATA_STRUCTURE_FINAL_AVLTREE_H

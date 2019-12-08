@@ -22,5 +22,5 @@ void readFile(AvlTree *root) {
 int main() {
     auto *tree = new AvlTree;
     readFile(tree);
-    cout << tree->root->getName();
+    tree->print();
 }
