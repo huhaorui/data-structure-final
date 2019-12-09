@@ -6,6 +6,7 @@
 #define DATA_STRUCTURE_FINAL_NODE_H
 
 #include <iostream>
+#include <utility>
 
 using namespace std;
 
@@ -29,8 +30,16 @@ public:
         return height;
     }
 
+
     void setHeight(int);
 
+    void setName(basic_string<char> _name) {
+        name = std::move(_name);
+    }
+
+    void setPassword(basic_string<char> _password) {
+        password = std::move(_password);
+    }
 
 private:
     string name;

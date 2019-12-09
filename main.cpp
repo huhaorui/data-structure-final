@@ -25,5 +25,8 @@ int main() {
     auto *tree = new AvlTree;
     readFile(tree);
     tree->print();
+    cout << "\n\n";
     cout << AvlTree::SearchNode("55", tree->root)->getPassword();
+    AvlTree::remove(tree->root, "5");
+    tree->print();
 }

@@ -54,7 +54,58 @@ Node *AvlTree::SearchNode(const string &name, Node *root) {
     }
 }
 
+Node *AvlTree::remove(Node *root, const string &name) {
+    if (root == nullptr) return nullptr;
+    if (name < root->getName()) {
+        root->left = remove(root->left, name);
+        //TODO 重新平衡
+    } else if (name > root->getName()) {
+        root->right = remove(root->right, name);
+        //TODO 重新平衡
+    } else {//找到删除点
+        if (root->left != nullptr && root->right != nullptr) {//两侧都存在
+            if (getHeight(root->left) > getHeight(root->right)) {//如果左侧比较深
+                Node *toRemove = maxNode(root->left);
+                root->setName(toRemove->getName());
+                root->setPassword(toRemove->getPassword());
+                root->left = remove(root->left, toRemove->getName());
+            } else {
+                Node *toRemove = minNode(root->right);
+                root->setName(toRemove->getName());
+                root->setPassword(toRemove->getPassword());
+                root->right = remove(root->right, toRemove->getName());
+            }
+        } else {
+            Node *tmp = root;
+            if (root->left != nullptr) {
+                root = root->left;
+            } else {
+                root = root->right;
+            }
+            delete tmp;
+        }
+    }
+    if (root != nullptr) {
+        root->setHeight(max(getHeight(root->left), getHeight(root->right)) + 1);
+    }
+    return root;
+}
+
 //TODO 删除节点
+Node *AvlTree::maxNode(Node *root) {
+    if (root->right != nullptr) {
+        return maxNode(root->right);
+    }
+    return root;
+}
+
+Node *AvlTree::minNode(Node *root) {
+    if (root->left != nullptr) {
+        return maxNode(root->left);
+    }
+    return root;
+}
+
 void AvlTree::print() {
     if (root == nullptr) return;
     ShadowTreeNode *SRoot = nullptr;
