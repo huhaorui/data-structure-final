@@ -40,10 +40,21 @@ Node *AvlTree::addNode(Node *pNode, string &name, string &password) {
         }
     }
     pNode->setHeight(max(getHeight(pNode->left), getHeight(pNode->right)) + 1);
-    //TODO 旋转树
     return pNode;
 }
 
+Node *AvlTree::SearchNode(const string &name, Node *root) {
+    if (root == nullptr) return nullptr;
+    if (root->getName() == name) {
+        return root;
+    } else if (root->getName() > name) {
+        return SearchNode(name, root->left);
+    } else {
+        return SearchNode(name, root->right);
+    }
+}
+
+//TODO 删除节点
 void AvlTree::print() {
     if (root == nullptr) return;
     ShadowTreeNode *SRoot = nullptr;

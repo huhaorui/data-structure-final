@@ -33,6 +33,7 @@ public:
 
     static Node *RightSpin(Node *);
 
+    static Node *SearchNode(const string &name, Node *root);
 };
 
 #endif //DATA_STRUCTURE_FINAL_AVLTREE_H
