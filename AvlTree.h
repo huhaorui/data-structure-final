@@ -31,7 +31,8 @@ public:
 
     static Node *LeftSpin(Node *);
 
-    static Node *RightSpin(Node *root);
+    static Node *RightSpin(Node *);
+
 };
 
 #endif //DATA_STRUCTURE_FINAL_AVLTREE_H

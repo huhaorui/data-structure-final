@@ -15,6 +15,8 @@ void readFile(AvlTree *root) {
     while (infile >> name >> password) {
         cout << name << password << endl;
         root->addUser(name, password);
+        root->print();
+        cout << endl << endl;
     }
     infile.close();
 }
