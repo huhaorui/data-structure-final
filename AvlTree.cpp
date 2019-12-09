@@ -16,9 +16,26 @@ Node *AvlTree::addNode(Node *pNode, string &name, string &password) {
         return pNode;
     } else if (name < pNode->getName()) {//要插入左边
         pNode->left = addNode(pNode->left, name, password);
+        if (getHeight(pNode->left) - getHeight(pNode->right) == 2) {
+            if (name < pNode->left->getName()) {
+                pNode = RightSpin(pNode);
+            } else {
+                pNode->left = LeftSpin(pNode->left);
+                pNode = RightSpin(pNode);
+            }
+        }
     } else {
         pNode->right = addNode(pNode->right, name, password);
+        if (getHeight(pNode->right) - getHeight(pNode->left) == 2) {
+            if (name > pNode->right->getName()) {
+                pNode = LeftSpin(pNode);
+            } else {
+                pNode->right = RightSpin(pNode->right);
+                pNode = LeftSpin(pNode);
+            }
+        }
     }
+    pNode->setHeight(max(getHeight(pNode->left), getHeight(pNode->right)) + 1);
     //TODO 旋转树
     return pNode;
 }
@@ -72,4 +89,22 @@ ShadowTreeNode *AvlTree::STreeBuild(Node *Tree, ShadowTreeNode *ShadowTree, int 
         ShadowTree->right = STreeBuild(Tree->right, ShadowTree->right, TreeRow + 1);
     }
     return ShadowTree;
+}
+
+Node *AvlTree::RightSpin(Node *root) {
+    Node *left = root->left;
+    root->left = root->right;
+    left->right = root;
+    root->setHeight(max(getHeight(root->left), getHeight(root->right)) + 1);
+    left->setHeight(max(getHeight(left->left), getHeight(left->right)) + 1);
+    return left;
+}
+
+Node *AvlTree::LeftSpin(Node *root) {
+    Node *right = root->right;
+    root->right = root->left;
+    right->left = root;
+    root->setHeight(max(getHeight(root->left), getHeight(root->right)) + 1);
+    right->setHeight(max(getHeight(right->left), getHeight(right->right) + 1));
+    return right;
 }

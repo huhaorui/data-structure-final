@@ -9,3 +9,7 @@ Node::Node(string &name, string &password) {
     this->password = password;
     height = 0;
 }
+
+void Node::setHeight(int i) {
+    this->height = i;
+}

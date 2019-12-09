@@ -11,11 +11,12 @@ using namespace std;
 
 class Node {
 public:
+
     Node(string &, string &);
 
     Node *left = nullptr;
     Node *right = nullptr;
-    int height;//节点高度
+
     string getName() {
         return name;
     }
@@ -24,9 +25,17 @@ public:
         return password;
     }
 
+    int getHeight() {
+        return height;
+    }
+
+    void setHeight(int);
+
+
 private:
     string name;
     string password;
+    int height;//节点高度
 };
 
 

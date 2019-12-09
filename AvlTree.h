@@ -16,6 +16,11 @@ public:
         root = nullptr;
     }
 
+    static int getHeight(Node *tree) {
+        if (tree != nullptr) return tree->getHeight();
+        return -1;
+    }
+
     void addUser(string &, string &);
 
     void print();
@@ -23,6 +28,10 @@ public:
     static Node *addNode(Node *, string &, string &);
 
     static ShadowTreeNode *STreeBuild(Node *, ShadowTreeNode *, int);
+
+    static Node *LeftSpin(Node *);
+
+    static Node *RightSpin(Node *root);
 };
 
 #endif //DATA_STRUCTURE_FINAL_AVLTREE_H
