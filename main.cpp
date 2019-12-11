@@ -28,6 +28,7 @@ void PasswordReset(Node *user) {
     cin >> password;
     if (password != user->getPassword()) {
         cout << "密码错误" << endl;
+        system("pause");
         return;
     }
     cout << "请输入新密码:";
@@ -54,6 +55,10 @@ void DeleteUser(AvlTree *tree) {
     string name;
     cout << "请输入姓名" << endl;
     cin >> name;
+    if (AvlTree::SearchNode(name, tree->root) == nullptr) {
+        cout << "用户不存在" << endl;
+        return;
+    }
     if (name == "admin") {
         cout << "该用户不能被删除" << endl;
         return;
