@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by HHR on 2019/11/27.
 //
 
@@ -10,6 +10,10 @@ void AvlTree::addUser(string &name, string &password) {
     root = addNode(root, name, password);
 }
 
+void AvlTree::removeUser(string &name) {
+    root = remove(root, name);
+}
+
 Node *AvlTree::addNode(Node *pNode, string &name, string &password) {
     if (pNode == nullptr) { //树为空的情况
         pNode = new Node(name, password);
@@ -18,10 +22,8 @@ Node *AvlTree::addNode(Node *pNode, string &name, string &password) {
         pNode->left = addNode(pNode->left, name, password);
         if (getHeight(pNode->left) - getHeight(pNode->right) == 2) {
             if (name < pNode->left->getName()) {
-                cout << "1.发生了右旋" << endl;
                 pNode = RightSpin(pNode);
             } else {
-                cout << "2.先左旋再右旋" << endl;
                 pNode->left = LeftSpin(pNode->left);
                 pNode = RightSpin(pNode);
             }
@@ -30,10 +32,8 @@ Node *AvlTree::addNode(Node *pNode, string &name, string &password) {
         pNode->right = addNode(pNode->right, name, password);
         if (getHeight(pNode->right) - getHeight(pNode->left) == 2) {
             if (name > pNode->right->getName()) {
-                cout << "3.发生了左旋" << endl;
                 pNode = LeftSpin(pNode);
             } else {
-                cout << "4.先右旋再左旋" << endl;
                 pNode->right = RightSpin(pNode->right);
                 pNode = LeftSpin(pNode);
             }
@@ -58,10 +58,26 @@ Node *AvlTree::remove(Node *root, const string &name) {
     if (root == nullptr) return nullptr;
     if (name < root->getName()) {
         root->left = remove(root->left, name);
-        //TODO 重新平衡
+        if (getHeight(root->right) - getHeight(root->left) == 2) {
+            Node *right = root->right;
+            if (getHeight(right->left) > getHeight(right->right)) {
+                root->right = RightSpin(root->right);
+                root = LeftSpin(root);
+            } else {
+                root = LeftSpin(root);
+            }
+        }
     } else if (name > root->getName()) {
         root->right = remove(root->right, name);
-        //TODO 重新平衡
+        if (getHeight(root->left) - getHeight(root->right) == 2) {
+            Node *left = root->left;
+            if (getHeight(left->left) < getHeight(left->right)) {
+                root->left = LeftSpin(root->left);
+                root = RightSpin(root);
+            } else {
+                root = RightSpin(root);
+            }
+        }
     } else {//找到删除点
         if (root->left != nullptr && root->right != nullptr) {//两侧都存在
             if (getHeight(root->left) > getHeight(root->right)) {//如果左侧比较深
@@ -127,7 +143,7 @@ void AvlTree::print() {
             tmpName[MaxLength - 1] = '.';
         } else {
             for (int i = tmpName.length(); i < MaxLength; i++)
-                tmpName[i] = ' ';
+                tmpName.append(" ");
         }
         for (int i = 1; i < pShadowTreeNode->column - MaxColumn; i++) {
             for (int j = 0; j < MaxLength; j++) cout << ' ';
@@ -139,6 +155,7 @@ void AvlTree::print() {
         if (pShadowTreeNode->left != nullptr) queue.push(pShadowTreeNode->left);
         if (pShadowTreeNode->right != nullptr) queue.push(pShadowTreeNode->right);
     }
+    cout << endl;
 }
 
 ShadowTreeNode *AvlTree::STreeBuild(Node *Tree, ShadowTreeNode *ShadowTree, int TreeRow) {

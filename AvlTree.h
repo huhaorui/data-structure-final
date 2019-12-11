@@ -40,6 +40,8 @@ public:
     static Node *maxNode(Node *root);
 
     static Node *minNode(Node *root);
+
+    void removeUser(string &name);
 };
 
 #endif //DATA_STRUCTURE_FINAL_AVLTREE_H

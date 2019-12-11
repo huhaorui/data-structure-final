@@ -17,8 +17,8 @@ public:
         name = "";
     }
 
-    int row;
-    int column;
+    int row{};
+    int column{};
     string name;
     ShadowTreeNode *left;
     ShadowTreeNode *right;
