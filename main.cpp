@@ -41,6 +41,10 @@ void AddUser(AvlTree *tree) {
     string name, password;
     cout << "请输入姓名和密码:" << endl;
     cin >> name >> password;
+    if (AvlTree::SearchNode(name, tree->root) != nullptr) {
+        cout << "用户已存在" << endl;
+        return;
+    }
     tree->addUser(name, password);
     cout << "创建成功" << endl;
     tree->print();
@@ -63,7 +67,7 @@ void adminView(AvlTree *tree) {
         system("cls");
         cout << "你好,admin" << endl;
         cout << "1.正向打印树" << endl;
-        cout << "2.添加节点" << endl;
+        cout << "2.添加用户" << endl;
         cout << "3.删除用户" << endl;
         cout << "4.退出" << endl;
         char op;
