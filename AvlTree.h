@@ -42,6 +42,8 @@ public:
     static Node *minNode(Node *root);
 
     void removeUser(string &name);
+
+    void save(Node *tree);
 };
 
 #endif //DATA_STRUCTURE_FINAL_AVLTREE_H

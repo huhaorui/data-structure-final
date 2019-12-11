@@ -5,8 +5,23 @@
 #include "AvlTree.h"
 #include "ShadowTreeNode.h"
 #include <queue>
+#include <fstream>
+
+void AvlTree::save(Node *tree)        //用递归方式保存信息到数据库文件
+{
+    if (tree == nullptr)
+        return;
+    fstream out;
+    if (tree == root) out.open("database.dat", ios::out);
+    else out.open("database.dat", ios::out | ios::app);
+    out << tree->getName() << " " << tree->getPassword() << endl;
+    out.close();
+    save(tree->left);
+    save(tree->right);
+}
 
 void AvlTree::addUser(string &name, string &password) {
+    if (SearchNode(name, root) != nullptr) return;
     root = addNode(root, name, password);
 }
 

@@ -18,6 +18,10 @@ void readFile(AvlTree *root) {
     infile.close();
 }
 
+void SaveFile(AvlTree *root) {
+    root->save(root->root);
+}
+
 void PasswordReset(Node *user) {
     string password;
     cout << "请输入原密码";
@@ -29,6 +33,7 @@ void PasswordReset(Node *user) {
     cout << "请输入新密码";
     cin >> password;
     user->setPassword(password);
+
     cout << "成功";
 }
 
@@ -73,10 +78,11 @@ void adminView(AvlTree *tree) {
             default:
                 cout << "错误" << endl;
         }
+        SaveFile(tree);
     }
 }
 
-void userView(Node *user) {
+void userView(Node *user, AvlTree *tree) {
     cout << "你好," << user->getName() << endl;
     cout << "1.修改密码" << endl;
     cout << "2.退出" << endl;
@@ -84,6 +90,7 @@ void userView(Node *user) {
     cin >> op;
     if (op == '1') {
         PasswordReset(user);
+        SaveFile(tree);
     } else {
         cout << "再见" << endl;
         exit(0);
@@ -94,7 +101,7 @@ void loginSuccessful(Node *user, AvlTree *tree) {
     if (user->getName() == "admin") {
         adminView(tree);
     } else {
-        userView(user);
+        userView(user, tree);
     }
 }
 
