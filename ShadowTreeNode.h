@@ -11,17 +11,11 @@ using namespace std;
 
 class ShadowTreeNode {
 public:
-    ShadowTreeNode() {
-        left = nullptr;
-        right = nullptr;
-        name = "";
-    }
-
-    int row{};
-    int column{};
-    string name;
-    ShadowTreeNode *left;
-    ShadowTreeNode *right;
+    int row = 0;
+    int column = 0;
+    string name = "";
+    ShadowTreeNode *left = nullptr;
+    ShadowTreeNode *right = nullptr;
 };
 
 

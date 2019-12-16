@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void readFile(AvlTree *root) {
+void readFile(AvlTree *root) {//从文件中读取Avl树的信息
     string name, password;
     ifstream infile;
     infile.open("database.dat", ios::in);
@@ -18,11 +18,11 @@ void readFile(AvlTree *root) {
     infile.close();
 }
 
-void SaveFile(AvlTree *root) {
+void SaveFile(AvlTree *root) {//将Avl树保存到文件
     root->save(root->root);
 }
 
-void PasswordReset(Node *user) {
+void PasswordReset(Node *user) {//修改密码功能
     string password;
     cout << "请输入原密码:";
     cin >> password;
@@ -38,7 +38,7 @@ void PasswordReset(Node *user) {
     system("pause");
 }
 
-void AddUser(AvlTree *tree) {
+void AddUser(AvlTree *tree) {//添加用户功能
     string name, password;
     cout << "请输入姓名和密码:" << endl;
     cin >> name >> password;
@@ -51,7 +51,7 @@ void AddUser(AvlTree *tree) {
     tree->print();
 }
 
-void DeleteUser(AvlTree *tree) {
+void DeleteUser(AvlTree *tree) {//删除用户功能
     string name;
     cout << "请输入姓名" << endl;
     cin >> name;
@@ -64,10 +64,11 @@ void DeleteUser(AvlTree *tree) {
         return;
     }
     tree->removeUser(name);
+    cout << "删除成功" << endl;
     tree->print();
 }
 
-void adminView(AvlTree *tree) {
+void adminView(AvlTree *tree) {//管理员用户的界面
     while (true) {
         system("cls");
         cout << "你好,admin" << endl;
@@ -75,9 +76,10 @@ void adminView(AvlTree *tree) {
         cout << "2.添加用户" << endl;
         cout << "3.删除用户" << endl;
         cout << "4.退出" << endl;
-        char op;
+        cout << "请选择你要进行的操作：";
+        string op;
         cin >> op;
-        switch (op) {
+        switch (op[0]) {
             case '1':
                 system("cls");
                 tree->print();
@@ -98,39 +100,40 @@ void adminView(AvlTree *tree) {
             default:
                 cout << "错误" << endl;
         }
-        if (op == '4')break;
+        if (op[0] == '4')break;
         SaveFile(tree);
     }
 }
 
-void userView(Node *user, AvlTree *tree) {
+void userView(AvlTree *tree, Node *user) {//普通用户的界面
     while (true) {
         system("cls");
         cout << "你好," << user->getName() << endl;
         cout << "1.修改密码" << endl;
         cout << "2.退出" << endl;
-        char op;
+        cout << "请选择你要进行的操作：";
+        string op;
         cin >> op;
-        if (op == '1') {
+        if (op[0] == '1') {
             system("cls");
             PasswordReset(user);
             SaveFile(tree);
-        } else {
+        } else if (op[0] == '2') {
             cout << "再见" << endl;
             break;
         }
     }
 }
 
-void loginSuccessful(Node *user, AvlTree *tree) {
+void loginSuccessful(AvlTree *tree, Node *user) {//登陆成功后，根据用户类别，跳转到对应的主界面
     if (user->getName() == "admin") {
         adminView(tree);
     } else {
-        userView(user, tree);
+        userView(tree, user);
     }
 }
 
-void login(AvlTree *tree) {
+void login(AvlTree *tree) {//登陆界面
     string name, password;
     cout << "请输入账号:";
     cin >> name;
@@ -144,7 +147,7 @@ void login(AvlTree *tree) {
     cin >> password;
     if (user->getPassword() == password) {
         cout << "登陆成功" << endl;
-        loginSuccessful(user, tree);
+        loginSuccessful(tree, user);
     } else {
         cout << "密码错误" << endl;
         system("pause");
@@ -156,13 +159,15 @@ int main() {
     auto *tree = new AvlTree;
     readFile(tree);
     while (true) {
-        char op;
+        string op;
         system("cls");
+        cout << "欢迎使用用户登陆管理系统" << endl;
         cout << "1.登陆" << endl;
         cout << "2.退出" << endl;
+        cout << "请选择你要进行的操作：";
         cin >> op;
         system("cls");
-        switch (op) {
+        switch (op[0]) {
             case '1':
                 login(tree);
                 break;
