@@ -22,7 +22,7 @@ public:
 
     void addUser(string &, string &);//添加用户功能
     void print();//使用影子树正向打印树
-    static Node *addNode(Node *pNode, string &name, string &password);//静态成员函数，用于添加节点
+    static Node *addNode(Node *, string &, string &);//静态成员函数，用于添加节点
     static ShadowTreeNode *ShadowTreeBuild(Node *Tree, ShadowTreeNode *ShadowTree, int TreeRow);//静态成员函数，用于生成影子树
     static Node *LeftSpin(Node *);//静态成员函数，将二叉树左旋
     static Node *RightSpin(Node *);//静态成员函数，将二叉树右旋

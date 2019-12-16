@@ -8,6 +8,17 @@
 
 using namespace std;
 
+void GarbageCollecting(Node *root) {
+    if (root->left) {
+        GarbageCollecting(root->left);
+    }
+    if (root->right) {
+        GarbageCollecting(root->right);
+    }
+    cout << "已释放：" << root->getName() << endl;
+    delete root;
+}
+
 void readFile(AvlTree *root) {//从文件中读取Avl树的信息
     string name, password;
     ifstream infile;
@@ -172,6 +183,9 @@ int main() {
                 login(tree);
                 break;
             case '2':
+                cout << "正在进行内存回收，请稍后\n";
+                SaveFile(tree);
+                GarbageCollecting(tree->root);
                 exit(0);
             default:
                 cout << "错误" << endl;
