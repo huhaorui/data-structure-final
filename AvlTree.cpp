@@ -3,8 +3,13 @@
 //
 #include "AvlTree.h"
 #include "ShadowTreeNode.h"
-#include <queue>
+#include "ShadowTreeNodeQueue.h"
+#include <cmath>
 #include <fstream>
+
+int max(int a, int b) {
+    return a > b ? a : b;
+}
 
 void AvlTree::save(Node *tree) {
     if (tree == nullptr) {//如果根节点是空指针，说明这棵子树已经完成了遍历，即可退出
@@ -134,7 +139,7 @@ Node *AvlTree::maxNode(Node *root) {
 
 Node *AvlTree::minNode(Node *root) {
     if (root->left != nullptr) {//如果左子树存在，说明最小的节点在左子树内
-        return maxNode(root->left);//递归查找左子树
+        return minNode(root->left);//递归查找左子树
     }
     return root;//如果左子树不存在，说明该节点即为最大的节点
 }
@@ -143,10 +148,10 @@ void AvlTree::print() {
     if (root == nullptr) return;//如果根节点不存在，显然是不需要打印的，返回
     ShadowTreeNode *ShadowTree = nullptr;
     ShadowTree = ShadowTreeBuild(root, ShadowTree, 1);//开始时，应该打印在第一行
-    queue<ShadowTreeNode *> queue;//建立一个打印队列
+    ShadowTreeNodeQueue queue;//建立一个打印队列
     queue.push(ShadowTree);
     int MaxRow = 1, MaxColumn = 0;
-    int MaxLength = 6;//设置内容的最大长度，以对齐树
+    int MaxLength = getMaxLength(this);//设置内容的最大长度，以对齐树
     while (!queue.empty()) {//如果打印队列非空
         ShadowTreeNode *pShadowTreeNode = queue.front();//取出队列第一项
         queue.pop();
@@ -156,16 +161,16 @@ void AvlTree::print() {
             MaxColumn = 0;
         }
         string tmpName = pShadowTreeNode->name;
-        if (tmpName.length() > MaxLength) {//检查名字有没有过长，如果太长，就将其截断，否则在后面补上空格
-            tmpName[MaxLength - 1] = '.';
-        } else {
-            for (int i = tmpName.length(); i < MaxLength; i++)
-                tmpName.append(" ");
+        while (tmpName.length() < MaxLength) {//检查名字有没有过长，如果太长，就将其截断，否则在后面补上空格
+            tmpName += ' ';
+            if (tmpName.length() < MaxLength) {
+                tmpName = string(" ").append(tmpName);
+            }
         }
         for (int i = 1; i < pShadowTreeNode->column - MaxColumn; i++) {//输出前置的空格
             for (int j = 0; j < MaxLength; j++) cout << ' ';
         }
-        cout << tmpName.substr(0, MaxLength);//打印出内容
+        cout << tmpName;
         MaxColumn = pShadowTreeNode->column;
         if (pShadowTreeNode->left != nullptr) queue.push(pShadowTreeNode->left);//如果左子树非空，将其加入打印队列
         if (pShadowTreeNode->right != nullptr) queue.push(pShadowTreeNode->right);
@@ -205,4 +210,20 @@ Node *AvlTree::LeftSpin(Node *root) {
     root->setHeight(max(getHeight(root->left), getHeight(root->right)) + 1);//旋转后，重设树的高度
     right->setHeight(max(getHeight(right->left), getHeight(right->right)) + 1);
     return right;
+}
+
+
+int AvlTree::getMaxLength(Node *Tree) {
+    int maxLength = Tree->getName().length();
+    if (Tree->left) {
+        maxLength = max(maxLength, getMaxLength(Tree->left));
+    }
+    if (Tree->right) {
+        maxLength = max(maxLength, getMaxLength(Tree->right));
+    }
+    return maxLength;
+}
+
+int AvlTree::getMaxLength(AvlTree *pTree) {
+    return getMaxLength(pTree->root);
 }

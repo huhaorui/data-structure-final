@@ -86,7 +86,8 @@ void adminView(AvlTree *tree) {//管理员用户的界面
         cout << "1.正向打印树" << endl;
         cout << "2.添加用户" << endl;
         cout << "3.删除用户" << endl;
-        cout << "4.退出" << endl;
+        cout << "4.修改密码" << endl;
+        cout << "5.退出" << endl;
         cout << "请选择你要进行的操作：";
         string op;
         cin >> op;
@@ -107,11 +108,15 @@ void adminView(AvlTree *tree) {//管理员用户的界面
                 system("pause");
                 break;
             case '4':
+                system("cls");
+                PasswordReset(AvlTree::SearchNode("admin", tree->root));
+                break;
+            case '5':
                 break;
             default:
                 cout << "错误" << endl;
         }
-        if (op[0] == '4')break;
+        if (op[0] == '5')break;
         SaveFile(tree);
     }
 }

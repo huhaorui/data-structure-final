@@ -32,6 +32,9 @@ public:
     static Node *minNode(Node *);//静态成员函数，返回右子树的最小节点，在删除节点时被调用
     void removeUser(string &);//删除用户名对应的用户
     void save(Node *);//保存树到文件
+    static int getMaxLength(AvlTree *pTree);
+
+    static int getMaxLength(Node *Tree);
 };
 
 #endif //DATA_STRUCTURE_FINAL_AVLTREE_H
